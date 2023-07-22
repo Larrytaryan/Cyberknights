@@ -107,7 +107,7 @@ class SignupActivity : AppCompatActivity() {
                 // Check if the user's email has been verified
                 if (currentUser.isEmailVerified) {
                     // Email verified, proceed with the account creation and registration
-                    Toast.makeText(this, "Email verified. Account created successfully!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Email verified. Account created successfully!!", Toast.LENGTH_SHORT).show()
                     // You can add your code here to redirect the user to the next screen or perform other actions
                 } else {
                     // Email not verified yet, wait for the next check
