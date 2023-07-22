@@ -11,7 +11,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 
-
 class SignupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignupBinding
@@ -107,23 +106,14 @@ class SignupActivity : AppCompatActivity() {
             if (currentUser != null && currentUser.uid == user.uid) {
                 // Check if the user's email has been verified
                 if (currentUser.isEmailVerified) {
-                    // Email verified, proceed with the account creation and registration in Firebase
-                    saveUserCredentials(user)
+                    // Email verified, proceed with the account creation and registration
                     Toast.makeText(this, "Email verified. Account created successfully!", Toast.LENGTH_SHORT).show()
-
-                    // You can now proceed with saving the user's login credentials in Firebase
+                    // You can add your code here to redirect the user to the next screen or perform other actions
                 } else {
                     // Email not verified yet, wait for the next check
                 }
             }
         }
-    }
-
-    private fun saveUserCredentials(user: FirebaseUser) {
-        // Here, you can implement the logic to save the user's login credentials in Firebase
-        // For example, you can store the user's ID, email, etc., in a database or Firestore collection
-
-        // After saving the user's credentials, you can redirect the user to the next screen or perform other actions
     }
 
     companion object {
