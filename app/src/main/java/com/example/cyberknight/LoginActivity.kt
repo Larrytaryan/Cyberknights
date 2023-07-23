@@ -13,30 +13,62 @@ import com.example.cyberknight.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
 
+
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
+
         binding.loginButton.setOnClickListener {
             val email = binding.loginEmail.text.toString()
             val password = binding.loginPassword.text.toString()
-            if (email.isNotEmpty() && password.isNotEmpty()){
-                firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
-                    if (it.isSuccessful){
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                // Check if the user exists in Firebase Authentication
+                firebaseAuth.fetchSignInMethodsForEmail(email)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val signInMethods = task.result?.signInMethods
+                            if (signInMethods.isNullOrEmpty()) {
+                                // User does not exist, display an error message
+                                Toast.makeText(
+                                    this,
+                                    "Account does not exist. Please sign up first.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                // User exists, try to sign in
+                                firebaseAuth.signInWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener { signInTask ->
+                                        if (signInTask.isSuccessful) {
+                                            val intent = Intent(this, MainActivity::class.java)
+                                            startActivity(intent)
+                                        } else {Toast.makeText(
+                                            this,
+                                            "wrong password please try again",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        }
+                                    }
+                            }
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Failed to check account existence.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                }
             } else {
                 Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
             }
         }
+
+
         binding.forgotPassword.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             val view = layoutInflater.inflate(R.layout.forgot_dialog, null)
@@ -55,14 +87,14 @@ class LoginActivity : AppCompatActivity() {
             }
             dialog.show()
         }
-        binding.loginButton.setOnClickListener {
-            val profileIntent = Intent(this, MainActivity::class.java)
-            startActivity(profileIntent)
-        }
+
         binding.loginRedirectText.setOnClickListener {
             val signupIntent = Intent(this, SignupActivity::class.java)
             startActivity(signupIntent)
         }
+
+
+
     }
     //Outside onCreate
     private fun compareEmail(email: EditText){
