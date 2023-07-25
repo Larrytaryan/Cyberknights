@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Incident form</string>
+    <string name="email_address">Email Address</string>
+    <string name="first_name">First Name</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="incident_description">Incident Description</string>
+    <string name="submit">Submit</string>
+    <string name="follow_up_phone_number">Follow-up Phone Number</string>
+    <string name="male">Male</string>
+    <string name="last_name">Last Name</string>
+</resources>
