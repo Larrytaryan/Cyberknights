@@ -12,9 +12,9 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-<<<<<<< HEAD
+
 rootProject.name = "CyberKnight"
-=======
-rootProject.name = "Incident form"
->>>>>>> Incident
-include ':app'
+
+
+include ':app', ':library1', ':library2'
+
