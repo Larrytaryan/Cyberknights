@@ -1,13 +1,16 @@
 package com.zachariah.incidentform
 
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.example.incidentrespondsystem.R
 
-class IncidentActivity : AppCompatActivity() {
+class IncidentActivity : AppCompatActivity(), Parcelable {
 
     private lateinit var editTextFirstName: EditText
     private lateinit var editTextLastName: EditText
@@ -53,5 +56,23 @@ class IncidentActivity : AppCompatActivity() {
         val radioButtonId = radioGroupGender.checkedRadioButtonId
         val selectedRadioButton = findViewById<RadioButton>(radioButtonId)
         return selectedRadioButton?.text.toString()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<IncidentActivity> {
+        override fun createFromParcel(parcel: Parcel): IncidentActivity {
+            return IncidentActivity()
+        }
+
+        override fun newArray(size: Int): Array<IncidentActivity?> {
+            return arrayOfNulls(size)
+        }
     }
 }
