@@ -10,6 +10,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        binding.button4.setOnClickListener {
+            val incidentIntent = Intent(this, IncidentActivity::class.java)
+            startActivity(incidentIntent)
+        }
+
+
+        binding.button5.setOnClickListener {
+            val vulnerabilitytIntent = Intent(this,VulnerabilityReportActivty::class.java)
+            startActivity(vulnerabilitytIntent)
+        }
+
+
 
     }
 }
