@@ -12,5 +12,9 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+<<<<<<< HEAD
 rootProject.name = "CyberKnight"
+=======
+rootProject.name = "Incident form"
+>>>>>>> Incident
 include ':app'
